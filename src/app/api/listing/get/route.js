@@ -9,6 +9,11 @@ export const POST = async (req) => {
     const startIndex = parseInt(data.startIndex) || 0;
     const limit = parseInt(data.limit) || 9;
     const sortDirection = data.order === 'asc' ? 1 : -1;
+    // Only allow sorting by known schema fields; default to createdAt
+    const allowedSortFields = ['createdAt', 'updatedAt', 'regularPrice'];
+    const sortField = allowedSortFields.includes(data.sort)
+      ? data.sort
+      : 'createdAt';
     
     let offer = data.offer;
     if (offer === undefined || offer === 'false') {
@@ -44,7 +49,7 @@ export const POST = async (req) => {
       parking,
       type,
     })
-      .sort({ updatedAt: sortDirection })
+      .sort({ [sortField]: sortDirection })
       .skip(startIndex)
       .limit(limit);
 

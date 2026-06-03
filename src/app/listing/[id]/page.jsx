@@ -1,22 +1,29 @@
 import ListingDetailsClient from '@/components/ListingDetailsClient';
+import Listing from '@/lib/models/listing.model';
+import { connect } from '@/lib/mongodb/mongoose';
+import mongoose from 'mongoose';
 
-export default async function Listing({ params }) {
+export default async function Listing_Page({ params }) {
   // Next.js 15: params is a Promise — must be awaited
   const { id } = await params;
   let listing = null;
+
   try {
-    const result = await fetch(process.env.URL + '/api/listing/get', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ listingId: id }),
-      cache: 'no-store',
-    });
-    const data = await result.json();
-    // Ensure it's a plain object (not a Mongoose document class instance)
-    listing = data[0] ? JSON.parse(JSON.stringify(data[0])) : null;
+    // Query MongoDB directly instead of doing an HTTP round-trip back to our
+    // own API. This avoids depending on process.env.URL and Vercel Deployment
+    // Protection, which was causing "Listing not found" in production.
+    await connect();
+
+    // Guard against malformed ids so Mongoose doesn't throw a CastError
+    if (mongoose.Types.ObjectId.isValid(id)) {
+      const doc = await Listing.findById(id);
+      // Convert the Mongoose document to a plain serializable object
+      listing = doc ? JSON.parse(JSON.stringify(doc)) : null;
+    }
   } catch (error) {
     console.error('Failed to load listing:', error);
   }
+
   if (!listing) {
     return (
       <main className='p-3 flex flex-col max-w-6xl mx-auto min-h-screen'>
@@ -26,5 +33,6 @@ export default async function Listing({ params }) {
       </main>
     );
   }
+
   return <ListingDetailsClient listing={listing} />;
 }

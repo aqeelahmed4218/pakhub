@@ -11,7 +11,7 @@ export default function Search() {
     parking: false,
     furnished: false,
     offer: false,
-    sort: 'created_at',
+    sort: 'createdAt',
     order: 'desc',
   });
   const [loading, setLoading] = useState(false);
@@ -41,24 +41,25 @@ export default function Search() {
         parking: parkingFromUrl === 'true' ? true : false,
         furnished: furnishedFromUrl === 'true' ? true : false,
         offer: offerFromUrl === 'true' ? true : false,
-        sort: sortFromUrl || 'created_at',
+        sort: sortFromUrl || 'createdAt',
         order: orderFromUrl || 'desc',
       });
     }
     const fetchListings = async () => {
       setLoading(true);
       setShowMore(false);
-      const searchQuery = urlParams.toString();
+      // Read filters straight from the URL params so we don't fetch with stale
+      // state (sidebardata updates asynchronously and isn't ready in this run).
       const res = await fetch('/api/listing/get', {
         method: 'POST',
         body: JSON.stringify({
-          searchTerm: sidebardata.searchTerm,
-          type: sidebardata.type,
-          parking: sidebardata.parking,
-          furnished: sidebardata.furnished,
-          offer: sidebardata.offer,
-          sort: sidebardata.sort,
-          order: sidebardata.order,
+          searchTerm: searchTermFromUrl || '',
+          type: typeFromUrl || 'all',
+          parking: parkingFromUrl === 'true' ? true : false,
+          furnished: furnishedFromUrl === 'true' ? true : false,
+          offer: offerFromUrl === 'true' ? true : false,
+          sort: sortFromUrl || 'createdAt',
+          order: orderFromUrl || 'desc',
         }),
         headers: {
           'Content-Type': 'application/json',
