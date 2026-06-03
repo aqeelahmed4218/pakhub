@@ -67,6 +67,11 @@ export default function Header() {
               Map
             </li>
           </Link>
+          <Link href='/contact'>
+            <li className='hidden md:inline text-secondary hover:text-primary transition-colors'>
+              Contact Us
+            </li>
+          </Link>
           <SignedIn>
             <Link href='/my-listings'>
               <li className='hidden md:inline text-secondary hover:text-primary transition-colors'>
