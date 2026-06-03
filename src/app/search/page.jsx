@@ -48,31 +48,37 @@ export default function Search() {
     const fetchListings = async () => {
       setLoading(true);
       setShowMore(false);
-      // Read filters straight from the URL params so we don't fetch with stale
-      // state (sidebardata updates asynchronously and isn't ready in this run).
-      const res = await fetch('/api/listing/get', {
-        method: 'POST',
-        body: JSON.stringify({
-          searchTerm: searchTermFromUrl || '',
-          type: typeFromUrl || 'all',
-          parking: parkingFromUrl === 'true' ? true : false,
-          furnished: furnishedFromUrl === 'true' ? true : false,
-          offer: offerFromUrl === 'true' ? true : false,
-          sort: sortFromUrl || 'createdAt',
-          order: orderFromUrl || 'desc',
-        }),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-      const data = await res.json();
-      if (data.length > 8) {
-        setShowMore(true);
-      } else {
+      try {
+        // Read filters straight from the URL params so we don't fetch with stale
+        // state (sidebardata updates asynchronously and isn't ready in this run).
+        const res = await fetch('/api/listing/get', {
+          method: 'POST',
+          body: JSON.stringify({
+            searchTerm: searchTermFromUrl || '',
+            type: typeFromUrl || 'all',
+            parking: parkingFromUrl === 'true' ? true : false,
+            furnished: furnishedFromUrl === 'true' ? true : false,
+            offer: offerFromUrl === 'true' ? true : false,
+            sort: sortFromUrl || 'createdAt',
+            order: orderFromUrl || 'desc',
+          }),
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+        const data = await res.json();
+        // Guard: API may return an error object instead of an array
+        const results = Array.isArray(data) ? data : [];
+        setShowMore(results.length > 8);
+        setListings(results);
+      } catch (err) {
+        console.error('Failed to fetch listings:', err);
+        setListings([]);
         setShowMore(false);
+      } finally {
+        // Always clear loading so the page never hangs on "Loading..."
+        setLoading(false);
       }
-      setListings(data);
-      setLoading(false);
     };
     fetchListings();
   }, [searchParams]);

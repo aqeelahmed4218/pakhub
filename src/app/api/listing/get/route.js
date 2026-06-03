@@ -15,20 +15,15 @@ export const POST = async (req) => {
       ? data.sort
       : 'createdAt';
     
-    let offer = data.offer;
-    if (offer === undefined || offer === 'false') {
-      offer = { $in: [false, true] };
-    }
-    
-    let furnished = data.furnished;
-    if (furnished === undefined || furnished === 'false') {
-      furnished = { $in: [false, true] };
-    }
-    
-    let parking = data.parking;
-    if (parking === undefined || parking === 'false') {
-      parking = { $in: [false, true] };
-    }
+    // For these checkbox filters, only narrow results when the box is checked
+    // (explicitly true). When unchecked/absent, match both true and false.
+    // NOTE: the client sends real booleans, so we must handle boolean false
+    // (not just the string 'false') as "match both".
+    const isTrue = (v) => v === true || v === 'true';
+
+    const offer = isTrue(data.offer) ? true : { $in: [false, true] };
+    const furnished = isTrue(data.furnished) ? true : { $in: [false, true] };
+    const parking = isTrue(data.parking) ? true : { $in: [false, true] };
     
     let type = data.type;
     if (type === undefined || type === 'all') {
