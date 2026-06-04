@@ -5,13 +5,13 @@ export default function About() {
     {
       name: "Aqeel Ahmed",
       role: "Co-Founder & CEO",
-      image: "https://api.dicebear.com/9.x/avataaars/png?seed=AqeelAhmed&size=400&backgroundColor=b6e3f4",
+      image: "https://api.dicebear.com/9.x/avataaars/png?seed=Hassan&size=400&backgroundColor=b6e3f4&top=shortFlat,shortRound,shortWaved,theCaesar&facialHairProbability=60&facialHair=beardLight,beardMedium",
       description: "Aqeel leads PakHub's vision to transform Pakistan's property market, combining real estate insight with a passion for technology."
     },
     {
       name: "Abdul Rehman",
       role: "Co-Founder & CTO",
-      image: "https://api.dicebear.com/9.x/avataaars/png?seed=AbdulRehman&size=400&backgroundColor=c0aede",
+      image: "https://api.dicebear.com/9.x/avataaars/png?seed=Bilal&size=400&backgroundColor=c0aede&top=shortFlat,shortRound,shortWaved,theCaesar&facialHairProbability=60&facialHair=beardLight,beardMedium",
       description: "Abdul drives the engineering behind PakHub, building a seamless and secure platform for property buyers, sellers, and renters."
     }
   ]
