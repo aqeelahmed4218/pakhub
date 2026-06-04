@@ -3,26 +3,21 @@ import TeamMember from '@/components/TeamMember'
 export default function About() {
   const teamMembers = [
     {
-      name: "Ahmed Khan",
-      role: "CEO & Founder",
-      image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
-      description: "With over 15 years of experience in real estate and technology, Ahmed leads PakHub's vision to transform Pakistan's property market."
+      name: "Aqeel Ahmed",
+      role: "Co-Founder & CEO",
+      image: "https://api.dicebear.com/9.x/avataaars/png?seed=AqeelAhmed&size=400&backgroundColor=b6e3f4",
+      description: "Aqeel leads PakHub's vision to transform Pakistan's property market, combining real estate insight with a passion for technology."
     },
     {
-      name: "Sara Malik",
-      role: "Chief Technology Officer",
-      image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
-      description: "Sara brings her expertise in software development and digital innovation to create seamless property solutions."
-    },
-    {
-      name: "Usman Ali",
-      role: "Head of Operations",
-      image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
-      description: "Usman ensures smooth operations and maintains the highest standards of service quality across all PakHub platforms."
+      name: "Abdul Rehman",
+      role: "Co-Founder & CTO",
+      image: "https://api.dicebear.com/9.x/avataaars/png?seed=AbdulRehman&size=400&backgroundColor=c0aede",
+      description: "Abdul drives the engineering behind PakHub, building a seamless and secure platform for property buyers, sellers, and renters."
     }
   ]
 
   return (
+    <div className='bg-gray-900'>
     <div className='py-20 px-4 max-w-6xl mx-auto'>
       <h1 className='text-3xl font-bold mb-4 text-white'>About PakHub</h1>
       <p className='mb-4 text-gray-300'>PakHub is Pakistan's premier real estate platform, dedicated to revolutionizing the property market in the country. We specialize in connecting buyers, sellers, and renters with their ideal properties across Pakistan's most sought-after locations. Our innovative platform makes property transactions seamless and transparent.</p>
@@ -53,12 +48,13 @@ export default function About() {
       {/* Leadership Team Section */}
       <div className="mt-16">
         <h2 className="text-2xl font-bold mb-6 text-white">Our Leadership Team</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-2xl">
           {teamMembers.map((member, index) => (
             <TeamMember key={index} {...member} />
           ))}
         </div>
       </div>
+    </div>
     </div>
   )
 }

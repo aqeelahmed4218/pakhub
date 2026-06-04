@@ -79,7 +79,8 @@ export default function ContactPage() {
             </span>
             <div>
               <h3 className='font-semibold text-foreground'>Email</h3>
-              <p className='text-muted text-sm'>support@pakhub.com</p>
+              <p className='text-muted text-sm'>aqeel@pakhub.com</p>
+              <p className='text-muted text-sm'>rehman@pakhub.com</p>
             </div>
           </div>
           <div className='flex items-start gap-4'>
@@ -88,7 +89,7 @@ export default function ContactPage() {
             </span>
             <div>
               <h3 className='font-semibold text-foreground'>Phone</h3>
-              <p className='text-muted text-sm'>+92 300 0000000</p>
+              <p className='text-muted text-sm'>03015444218</p>
             </div>
           </div>
         </div>

@@ -124,10 +124,13 @@ export default function Footer() {
               <FaMapMarkerAlt className='text-primary shrink-0' /> Multan, Pakistan
             </li>
             <li className='flex items-center gap-3'>
-              <FaEnvelope className='text-primary shrink-0' /> support@pakhub.com
+              <FaEnvelope className='text-primary shrink-0' /> aqeel@pakhub.com
             </li>
             <li className='flex items-center gap-3'>
-              <FaPhoneAlt className='text-primary shrink-0' /> +92 300 0000000
+              <FaEnvelope className='text-primary shrink-0' /> rehman@pakhub.com
+            </li>
+            <li className='flex items-center gap-3'>
+              <FaPhoneAlt className='text-primary shrink-0' /> 03015444218
             </li>
           </ul>
         </div>
